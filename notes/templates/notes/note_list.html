@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Мои заметки</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; background-color: #f4f4f4; }
+        .note { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .note h2 { margin-top: 0; color: #333; }
+        .note p { color: #666; }
+        .note .date { font-size: 0.8em; color: #999; }
+        .header { display: flex; justify-content: space-between; align-items: center; }
+        .admin-link { text-decoration: none; color: #4CAF50; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Список заметок</h1>
+        <a href="{% url 'admin:index' %}" class="admin-link">Управление заметками</a>
+    </div>
+
+    {% if notes %}
+        {% for note in notes %}
+            <div class="note">
+                <h2>{{ note.title }}</h2>
+                <p>{{ note.body }}</p>
+                <div class="date">Создано: {{ note.created_at|date:"d.m.Y H:i" }}</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>Пока нет ни одной заметки.</p>
+    {% endif %}
+</body>
+</html>
